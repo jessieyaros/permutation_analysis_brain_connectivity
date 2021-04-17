@@ -414,10 +414,18 @@ def fetch_restructured_permutations():
     return restructured_permutations
 
 def sanity_check_restructured_dfs(restructured_permutations, num_permutations):
+    expected_conditions = 8
     expected_subjects = 22
     expected_permutations = num_permutations
     exploded_rows = 4
     expected_rows = expected_subjects * expected_permutations * exploded_rows
+    
+    num_conditions = len(restructured_permutations)
+    if num_conditions == expected_conditions:
+        print (f'QC Pass: {num_conditions} conditions, as expected\n')
+    else:
+        print(f'ERROR: {num_conditions} instead of {expected_conditions} conditions\n')
+
     
     for key in restructured_permutations.keys():
         print(f'Checking {key}...')
@@ -442,7 +450,7 @@ def sanity_check_restructured_dfs(restructured_permutations, num_permutations):
         print('\n')
     return
 
-############################### FUNTION CALLS ################################
+############################### FUNCTION CALLS ################################
 ''' Uncomment to call individual functions'''
 
 ''' Read in raw data for global and local efficiency'''
