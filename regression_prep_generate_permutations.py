@@ -207,8 +207,7 @@ def generate_permutations(cond, df, num_permutations):
 
         #Randomly shuffle the subject's four datapoints 10,000 times, storing each
         for iteration in range(num_permutations):
-            #shuffle order of cluster and local efficiency metrics by randomly
-            #sampling both lists
+            #shuffle order of  metrics by randomly sampling both lists
             global_permutation, local_permutation = [random.sample(metric,len(metric)) \
                         for metric in [global_efficiency,local_efficiency]]
 
@@ -469,24 +468,24 @@ df =  average_across_costs(df)
 This structures data to be compatable for regression analysis in statsmodels.
 Export to csv'''
 df_final = engineer_condition_features(df)
-df_final.to_csv(os.path.join('output', "output_efficiency_metrics_for_analysis.csv"),\
+#df_final.to_csv(os.path.join('output', "output_efficiency_metrics_for_analysis.csv"),\
 #                             index = False)
 ''' Run QC checks to confirm df meets structural expectations'''
 sanity_check(df_final)
 
 ''' Generate dataframes with 10,000 possible shufflings of each participant's 
   phase * trial_type * accuracy conditions.  '''
-permutations, num_permutations = run_generate_permutations()
+#permutations, num_permutations = run_generate_permutations()
 
 ''' Run QC checks to confirm the dfs storing permutations meet structural 
 expectations. ''' 
-sanity_check_confirm_permutation_count(permutations, num_permutations)
+#sanity_check_confirm_permutation_count(permutations, num_permutations)
 
 ''' Restructure permutation in dfs to be compatable for glm regression 
 analysis. Export to csv'''
-run_transform_permutations()
+#run_transform_permutations()
 
 '''Read back in restructured permutation dfs, store in dictionary and run QC 
 checks to confirm they meet structural expectations. '''
-restructured_permutations = fetch_restructured_permutations()
-sanity_check_restructured_dfs(restructured_permutations, num_permutations)
+#restructured_permutations = fetch_restructured_permutations()
+#sanity_check_restructured_dfs(restructured_permutations, num_permutations)
