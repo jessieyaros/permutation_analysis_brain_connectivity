@@ -608,28 +608,29 @@ def fwer_correction(p_values_uncorrected):
 ############################### FUNCTION CALLS ################################
 
 ''' Load in observed as well as random/permuted data. '''
-#observed_data, permuted_data_dictionary = fetch_data()
+observed_data, permuted_data_dictionary = fetch_data()
 
 ''' Run crude QC checks on observed and permuted data confirm they meet 
     structural expectations. '''
-#sanity_check_observed_data(observed_data)
-#sanity_check_permuted_data(permuted_data_dictionary, num_permutations= 10000)
+sanity_check_observed_data(observed_data)
+sanity_check_permuted_data(permuted_data_dictionary, num_permutations= 10000)
 
 ''' Exploratory Data Analysis - view and save distributions and boxplots with 
     normality assessments. '''
-#run_eda(observed_data)
+run_eda(observed_data)
 
 ''' Create dataframe storing all records that are deemed outliers within their
     corresponding phase*trial_type data subset. Export to csv. Also print out 
     statements describing number of outliers per condition. '''
-#df_outliers = run_outlier_detection(observed_data)
+df_outliers = run_outlier_detection(observed_data)
 
 ''' The detected outlier seems to be in agreement with the boxplots from run_eda
     except for identifying an additional outlier each for global efficiecy 
     encoding targets, and retrieval lures. Group data by subjects, as well
     as other categorical columns to ensure that no one person or condition
     can account for the majority of the outliers. '''
-#outlier_pattern_detection(df_outliers)
+outlier_pattern_detection(df_outliers)
+
 ''' Results: No subjects are overrepresented as outliers. Slightly more SR, 
     Accurate, global efficiency, and encoding conditions are outliers. No
     outlier removal will be done. Since no subject is 
@@ -649,7 +650,7 @@ def fwer_correction(p_values_uncorrected):
     statisic is a score that indicates how far the data falls from the null 
     hypothesis/ what would be expected if the interaction had no effect on the 
     dependent variables. '''
-#glm_results_all_conditions = run_gee_analysis(observed_data)
+glm_results_all_conditions = run_gee_analysis(observed_data)
     # Note full GLM results can be accessed like:
     # glm_results_all_conditions['enc_lure']['global_efficiency']['regression_results'].summary()
     # Z-stats can be accessed like:
@@ -665,7 +666,7 @@ def fwer_correction(p_values_uncorrected):
     the 45 degree diagogonal. 
     Print out residual normality assessments, and display/save QQ plots and log
     report to 'output/model_fit directory''.'''
-#assess_model_fit(glm_results_all_conditions)    
+assess_model_fit(glm_results_all_conditions)    
     
 ''' Permutation Testing to Evaluate Significance of Observed Results:
     Because each cluster of data within our models is small (22 observations), 
@@ -682,10 +683,10 @@ def fwer_correction(p_values_uncorrected):
     Specifically, 10,000 iterations of randomized data were generated for each 
     condition. Here we model each condition 10,000 times, and store each
     resulting Z-score. '''
-#permutation_test_results = run_permutation_analysis(permuted_data_dictionary)
+permutation_test_results = run_permutation_analysis(permuted_data_dictionary)
 # Alternatively load in permutations if you've alread run this fucntion and 
 #     data was saved to csv
-#permutation_test_results = fetch_z_distributions()   
+permutation_test_results = fetch_z_distributions()   
 
 
 ''' Confirm each condition has 10,000 intearction z-scores corresponging to the
